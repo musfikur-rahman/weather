@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Forecast</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -13,7 +17,7 @@
 <body>
     <div class="weather-container">
         <header class="app-header">
-            <img src="weather-logo.png" alt="Weather App Logo" style="height: 50px;">
+            <h1 class="app-logo"><i class="fas fa-cloud-sun"></i> WeatherApp</h1>
             <div class="header-right-section">
                 <div class="search-section">
                     <input type="text" id="city-input" placeholder="Enter city name">
@@ -29,26 +33,94 @@
             <section class="current-weather-section">
                 <div class="current-weather-summary">
                     <h2 id="city-name"></h2>
-                    <p class="current-temp" id="temperature"></p>
-                    <p class="feels-like" id="feels-like"></p>
-                    <p class="current-description" id="description"></p>
+                    <div class="weather-display">
+                        <img src="" alt="Weather Icon" id="weather-icon" class="weather-icon">
+                        <div class="temp-details">
+                            <p class="current-temp" id="temperature"></p>
+                            <p class="current-description" id="description"></p>
+                            <p class="feels-like" id="feels-like"></p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="current-weather-details">
-                    <h3>Details</h3>
                     <div class="details-grid">
-                        <p>Humidity: <span id="humidity"></span></p>
-                        <p>Wind: <span id="wind-speed"></span></p>
-                        <p>Pressure: <span id="pressure"></span></p>
-                        <p>Visibility: <span id="visibility"></span></p>
-                        <p>Dew Point: <span id="dew-point"></span></p>
-                        <p>UV Index: <span id="uv-index">N/A</span></p> <!-- UV index not directly from OpenWeatherMap, will be N/A -->
+                        <div class="detail-item">
+                            <i class="fas fa-tint"></i>
+                            <div>
+                                <p>Humidity</p>
+                                <span id="humidity"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-wind"></i>
+                            <div>
+                                <p>Wind</p>
+                                <span id="wind-speed"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-compass"></i>
+                            <div>
+                                <p>Wind Direction</p>
+                                <span id="wind-direction"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <div>
+                                <p>Pressure</p>
+                                <span id="pressure"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-eye"></i>
+                            <div>
+                                <p>Visibility</p>
+                                <span id="visibility"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-thermometer-three-quarters"></i>
+                            <div>
+                                <p>Dew Point</p>
+                                <span id="dew-point"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-sun"></i>
+                            <div>
+                                <p>UV Index</p>
+                                <span id="uv-index">N/A</span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-sun"></i>
+                            <div>
+                                <p>Sunrise</p>
+                                <span id="sunrise"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-moon"></i>
+                            <div>
+                                <p>Sunset</p>
+                                <span id="sunset"></span>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-cloud"></i>
+                            <div>
+                                <p>Cloudiness</p>
+                                <span id="cloudiness"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <section class="map-section">
-                <h2>Weather Map</h2>
+                <h2>Location</h2>
                 <div id="map"></div>
             </section>
 
@@ -65,12 +137,21 @@
                     <!-- Daily Forecast items will be dynamically added here by JavaScript -->
                 </div>
             </section>
+
+            <section class="hourly-temp-chart-section">
+                <h2>Hourly Temperature Trend</h2>
+                <div class="chart-container">
+                    <canvas id="hourlyTempChart"></canvas>
+                </div>
+            </section>
         </main>
     </div>
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
