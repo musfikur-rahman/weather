@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_KEY = '583509b0cebf81941e1eb2f736f65ac3'; 
     const CURRENT_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
     const FORECAST_URL = 'https://api.openweathermap.org/data/2.5/forecast';
-    const IP_API_URL = 'http://ip-api.com/json';
+    
 
     let map; 
     let marker; 
     let currentUnit = 'metric'; // 'metric' for Celsius, 'imperial' for Fahrenheit
-    let currentCity = ''; // Store the current city to re-fetch data
+    let currentCity = 'London'; // Store the current city to re-fetch data
 
     // Initialize the map
     map = L.map('map').setView([0, 0], 18); 
@@ -235,31 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function fetchLocationAndWeather() {
-        fetch(IP_API_URL)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.status === 'success' && data.city) {
-                    cityInput.value = data.city; 
-                    currentCity = data.city; 
-                    fetchWeatherData(currentCity, currentUnit);
-                    fetchForecastData(currentCity, currentUnit);
-                } else {
-                    console.error('IP-API error:', data.message);
-                    alert('Could not detect your location automatically. Please enter a city manually.');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching IP location:', error);
-                alert('Could not detect your location automatically. Please enter a city manually.');
-            });
-    }
+    
 
-    // Call this function when the page loads
-    fetchLocationAndWeather();
+    // Fetch weather for the default city on page load
+    if (currentCity) {
+        fetchWeatherData(currentCity, currentUnit);
+        fetchForecastData(currentCity, currentUnit);
+    }
 });
